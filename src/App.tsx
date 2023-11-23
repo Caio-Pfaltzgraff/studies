@@ -1,9 +1,11 @@
-import Button from "./components/Button";
+import Formulario from "./components/Formulario";
+import Lista from "./components/Lista";
 
 function App() {
   return (
     <div>
-      <Button />
+      <Formulario />
+      <Lista />
     </div>
   );
 }
