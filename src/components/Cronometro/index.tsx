@@ -19,9 +19,8 @@ export function Cronometro({selecionado}: CronometroProps) {
     return (
         <div className={style.cronometro}>
             <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
-            Tempo: {tempo?.toString()}
             <div className={style.relogioWrapper}>
-                <Relogio />
+                <Relogio tempo={tempo}/>
             </div>
             <Button>Começar!</Button>
         </div>
