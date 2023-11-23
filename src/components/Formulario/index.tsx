@@ -1,13 +1,17 @@
+import { ITarefa } from "../../types/tarefa";
 import Button from "../Button";
 import style from './Formulario.module.scss'
 import { useState } from 'react';
 
-export default function Formulario() {
-    const [tarefa, setTarefa] = useState({nome: "", tempo: "00:00"})
+
+export default function Formulario(
+    {setTarefas}: {setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>}
+) {
+    const [state, setState] = useState({tarefa: "", tempo: "00:00"})
 
     const adicionarTarefa = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(tarefa)
+        setTarefas((tarefasAntigas) => [...tarefasAntigas, {...state}])
     }
 
     return (
@@ -20,8 +24,8 @@ export default function Formulario() {
                     type="text" 
                     name="tarefa" 
                     id="tarefa"
-                    value={tarefa.nome}
-                    onChange={(e) => setTarefa({...tarefa, nome: e.target.value})}
+                    value={state.tarefa}
+                    onChange={(e) => setState({...state, tarefa: e.target.value})}
                     placeholder="O que você quer estudar"
                     required
                 />
@@ -34,15 +38,15 @@ export default function Formulario() {
                     type="time"
                     step="1"
                     name="tempo"
-                    value={tarefa.tempo}
-                    onChange={(e) => setTarefa({ ...tarefa, tempo: e.target.value })}
+                    value={state.tempo}
+                    onChange={(e) => setState({ ...state, tempo: e.target.value })}
                     id="tempo"
                     min="00:00:00"
                     max="01:30:00"
                     required
                 />
             </div>
-            <Button>
+            <Button type="submit">
                 Adicionar
             </Button>
         </form>
