@@ -2,7 +2,7 @@ import { ITarefa } from "../../types/tarefa";
 import Button from "../Button";
 import style from './Formulario.module.scss'
 import { useState } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Formulario(
     {setTarefas}: {setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>}
@@ -11,7 +11,16 @@ export default function Formulario(
 
     const adicionarTarefa = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setTarefas((tarefasAntigas) => [...tarefasAntigas, {...state}])
+        setTarefas((tarefasAntigas) => [
+            ...tarefasAntigas, 
+            {
+                ...state,
+                selecionado: false,
+                completado: false,
+                id: uuidv4()
+            }
+        ])
+        setState({tarefa: "", tempo: "00:00"})
     }
 
     return (
