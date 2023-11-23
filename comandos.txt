@@ -1,0 +1,2 @@
+npm install --save-dev sass
+npm install -D typescript-plugin-css-modules
