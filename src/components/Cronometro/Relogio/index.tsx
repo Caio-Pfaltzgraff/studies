@@ -1,12 +1,12 @@
 import style from './Relogio.module.scss'
 
 interface RelogioProps {
-  tempo: Number | undefined
+  tempo: number | undefined
 }
 
 export default function Relogio({ tempo = 0 }: RelogioProps) {
-  const minutos = Math.floor(Number(tempo) / 60);
-  const segundos = Number(tempo) % 60;
+  const minutos = Math.floor(tempo / 60);
+  const segundos = tempo % 60;
   const [minutoDezena, minutoUnidade] = String(minutos).padStart(2, '0');
   const [segundoDezena, segundoUnidade] = String(segundos).padStart(2, '0');
 
