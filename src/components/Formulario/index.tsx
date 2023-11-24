@@ -4,23 +4,28 @@ import style from './Formulario.module.scss'
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Formulario(
-    {setTarefas}: {setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>}
-) {
-    const [state, setState] = useState({tarefa: "", tempo: "00:00"})
+interface FormularioProps {
+    setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>> 
+}
+
+export default function Formulario({setTarefas}: FormularioProps) {
+    const [tarefa, setTarefa] = useState("")
+    const [tempo, setTempo] = useState("00:00")
 
     const adicionarTarefa = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setTarefas((tarefasAntigas) => [
             ...tarefasAntigas, 
             {
-                ...state,
+                tarefa,
+                tempo,
                 selecionado: false,
                 completado: false,
                 id: uuidv4()
             }
         ])
-        setState({tarefa: "", tempo: "00:00"})
+        setTarefa("")
+        setTempo("00:00")
     }
 
     return (
@@ -33,8 +38,8 @@ export default function Formulario(
                     type="text" 
                     name="tarefa" 
                     id="tarefa"
-                    value={state.tarefa}
-                    onChange={(e) => setState({...state, tarefa: e.target.value})}
+                    value={tarefa}
+                    onChange={(e) => setTarefa(e.target.value)}
                     placeholder="O que você quer estudar"
                     required
                 />
@@ -47,8 +52,8 @@ export default function Formulario(
                     type="time"
                     step="1"
                     name="tempo"
-                    value={state.tempo}
-                    onChange={(e) => setState({ ...state, tempo: e.target.value })}
+                    value={tempo}
+                    onChange={(e) => setTempo(e.target.value)}
                     id="tempo"
                     min="00:00:00"
                     max="01:30:00"
